@@ -7,10 +7,10 @@ import { initializeCardManagement } from './js/promptCard.js';
 // 模型配置
 const MODEL_CONFIG = {
     DEEPSEEK: {
-        BASE_URL: 'https://api.deepseek.com/v1',
+        BASE_URL: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
         MODELS: {
-            V3: 'deepseek-chat',
-            R1: 'deepseek-reasoner'
+            V3: 'deepseek-v3',
+            R1: 'deepseek-r1'
         }
     }
 };
@@ -115,6 +115,132 @@ async function addDefaultCards() {
         '以下写得太细碎了。请你改写这段文字，使其整体性强一些。你不必遵循原文字的结构，可以根据它的内容，重新提炼大纲后再重写，要求情感真挚、用词标准：```{{text}}```'
     );
     // console.log('Added card 3:', card3.id);
+
+    // 校对类
+    const card4 = cardManager.addCard(
+        '语法检查',
+        '请检查以下文字的语法错误，并给出修改建议：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card5 = cardManager.addCard(
+        '敏感词检测',
+        '请检查以下文字中的敏感词，并给出委婉的替换建议：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card6 = cardManager.addCard(
+        '标点优化',
+        '请检查以下文字的标点符号使用是否规范，给出修改建议：```{{text}}```'
+    );
+
+    // 公文处理类
+    const card7 = cardManager.addCard(
+        '公文格式化',
+        '请将以下文字按照公文格式进行规范化处理：\n文种：{{type}}\n正文：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card8 = cardManager.addCard(
+        '请示报告生成',
+        '请根据以下要点生成一份规范的请示报告：\n主题：{{subject}}\n主要内容：{{content}}\n请示事项：{{request}}'
+    );
+
+    // 创意辅助类
+    const card9 = cardManager.addCard(
+        '标题生成',
+        '请根据以下正文内容，生成5个吸引人的标题：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card10 = cardManager.addCard(
+        '摘要生成',
+        '请为以下文章生成一段200字以内的摘要：```{{text}}```'
+    );
+
+    // 风格转换类
+    const card11 = cardManager.addCard(
+        '风格转换',
+        '请将以下文字改写成指定风格：\n目标风格：{{style}}\n原文：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card12 = cardManager.addCard(
+        '口语化表达',
+        '请将以下正式文字改写成更口语化的表达：```{{text}}```'
+    );
+
+    // 分析类
+    const card13 = cardManager.addCard(
+        '情感分析',
+        '请分析以下文字的情感倾向，并给出具体分析：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card14 = cardManager.addCard(
+        '关键词提取',
+        '请从以下文字中提取出10个最重要的关键词，并解释选择原因：```{{text}}```'
+    );
+
+    // 学术写作类
+    const card15 = cardManager.addCard(
+        '术语规范',
+        '请检查以下学术文章中的术语使用是否规范、一致，给出修改建议：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card16 = cardManager.addCard(
+        '参考文献整理',
+        '请将以下参考文献按照规范格式整理：\n引用格式：{{format}}\n原始文献：```{{references}}```'
+    );
+
+    // 公文政治性处理
+    const card17 = cardManager.addCard(
+        '政治表述规范',
+        '请检查以下文字的政治表述是否规范，确保符合当前政策导向和规范用语：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card18 = cardManager.addCard(
+        '公文严肃性提升',
+        '请将以下文字修改为更加严肃、庄重的公文表达方式：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card19 = cardManager.addCard(
+        '党政机关公文规范',
+        '请按照党政机关公文格式标准（GB/T 9704-2012）规范以下文字：\n文种：{{type}}\n正文：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card20 = cardManager.addCard(
+        '会议精神转化',
+        '请将以下会议/讲话精神转化为正式的公文表述：\n会议类型：{{meeting_type}}\n原始内容：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card21 = cardManager.addCard(
+        '政策解读转换',
+        '请将以下政策内容转换为更加规范的公文表述，注意准确把握政策精神：```{{text}}```'
+    );
+    
+    await new Promise(resolve => setTimeout(resolve, 1));
+    
+    const card22 = cardManager.addCard(
+        '公文层级表述',
+        '请根据以下内容生成合适的公文表述：\n发文机关层级：{{level}}\n接收对象层级：{{target_level}}\n内容：```{{text}}```'
+    );
 }
 
 // 添加默认文本卡片
@@ -465,11 +591,11 @@ function initializeModelSelector() {
     const modelOptions = document.querySelectorAll('.model-option');
     
     // 设置默认模型为通义千问
-    let currentModel = 'tongyi';
+    let currentModel = 'deepseek-v3';
     
     // 设置初始选中状态
     modelOptions.forEach(opt => {
-        if (opt.dataset.model === 'tongyi') {
+        if (opt.dataset.model === 'deepseek-v3') {
             opt.classList.add('selected');
         } else {
             opt.classList.remove('selected');
@@ -609,14 +735,14 @@ async function callAIAPI(message, model) {
         }
     } else if (modelInfo.model === 'tongyi') {
         try {
-            const response = await fetch(API_CONFIG.API_URL, {
+            const response = await fetch(`https://dashscope.aliyuncs.com/compatible-mode/v1`, {
                 method: 'POST',
                 headers: {
                     'Authorization': API_CONFIG.TONGYI_API_KEY,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    model: 'qwen-turbo',
+                    model: 'qwen-plus',
                     input: {
                         messages: [
                             {
